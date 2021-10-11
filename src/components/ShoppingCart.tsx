@@ -1,16 +1,36 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styles from './ShoppingCart.module.css'
+import { appContext, appSetStateContext } from '../AppState'
 
-interface Props {
+interface Props {}
 
+const ShoppingCart: React.FC<Props> = (props) => {
+
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const value = useContext(appContext)
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setIsOpen(!isOpen)
+  }
+
+  return (
+    <div className={styles.cartContainer}>
+      <button className={styles.button} onClick={handleClick}>
+        <span>购物车 {value.shoppingCart.items.length} 件</span>
+      </button>
+      <div className={styles.cartDropDown} style={{ display: isOpen ? 'block' : 'none' }}>
+        <ul>
+          {value.shoppingCart.items.map((i, k) => <li key={k}>{i.name}</li>)}
+        </ul>
+      </div>
+    </div>
+  )
 }
+export default ShoppingCart
 
-// 组件自己的状态
-interface State {
-  isOpen: boolean
-}
-
-class ShoppingCart extends React.Component<Props, State> {
+/**
+ *
+ class ShoppingCart extends React.Component<Props, State> {
   // * 生命周期第一阶段：初始化
   // 构建函数 constructor 是唯一可以初始化 state 的地方
   constructor(props: Props) {
@@ -51,5 +71,5 @@ class ShoppingCart extends React.Component<Props, State> {
     )
   }
 }
+ */
 
-export default ShoppingCart

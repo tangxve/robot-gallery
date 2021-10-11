@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import robots from './mockdata/robots.json'
 import Robot from './components/Robots'
+import RobotDiscount from './components/RobotDiscount'
 import logo from './assets/images/logo.svg'
 // import './App.module.css'
 // 通过对象的方式引入进来，防止命名冲突
@@ -16,6 +17,8 @@ interface State {
 const App: React.FC = (props) => {
   const [count, setCount] = useState<number>(0)
   const [robotGallery, setRobotGallery] = useState<any[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     document.title = '点击' + count
@@ -23,11 +26,24 @@ const App: React.FC = (props) => {
   }, [count])
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then((data) => setRobotGallery(data))
+    setLoading(true)
+    const fetchData = async () => {
+      try {
 
-    console.log('useEffect2222')
+        const res = await fetch('https://jsonplaceholder.typicode.com/users')
+        // .then(res => res.json())
+        // .then(data => setRobotGallery(data))
+
+        const data = await res.json()
+
+        setRobotGallery(data)
+      } catch (e: any) {
+        setError(e.message)
+      }
+      setLoading(false)
+    }
+
+    fetchData()
   }, []) // 空数组相当于 componentDidMount
 
   // useEffect(() => {
@@ -53,11 +69,19 @@ const App: React.FC = (props) => {
       </button>
       <span>{count}</span>
       <ShoppingCart />
-      <div className={styles.robotList}>
-        {robotGallery.map((r) => (
-          <Robot key={r.id} id={r.id} name={r.name} email={r.email} />
-        ))}
-      </div>
+      {
+        !error || error !== '' && <div>错误信息：{error}</div>
+      }
+      {!loading
+       ? <div className={styles.robotList}>
+         {robotGallery.map((r, i) => (
+           i % 2 === 0
+           ? (<RobotDiscount key={r.id} id={r.id} name={r.name} email={r.email} />)
+           : (<Robot key={r.id} id={r.id} name={r.name} email={r.email} />)
+         ))}
+       </div>
+       : (<h2>loading....</h2>)
+      }
     </div>
   )
 
