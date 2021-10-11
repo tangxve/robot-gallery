@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import robots from './mockdata/robots.json'
 import Robot from './components/Robots'
 import logo from './assets/images/logo.svg'
@@ -13,7 +13,61 @@ interface State {
   robotGallery: any[]
 }
 
-class App extends React.Component<Props, State> {
+const App: React.FC = (props) => {
+  const [count, setCount] = useState<number>(0)
+  const [robotGallery, setRobotGallery] = useState<any[]>([])
+
+  useEffect(() => {
+    document.title = '点击' + count
+    console.log('useEffect3333')
+  }, [count])
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then((data) => setRobotGallery(data))
+
+    console.log('useEffect2222')
+  }, []) // 空数组相当于 componentDidMount
+
+  // useEffect(() => {
+  //   console.log('useEffect11111')
+  // }) 类似于 componentDidUpdate
+  //
+  // useEffect(() => {
+  //   console.log('useEffect4444')
+  // }, [count, robotGallery])
+
+
+  return (
+    <div className={styles.app}>
+      <div className={styles.appHeader}>
+        <img className={styles.appLogo} src={logo} alt="logo" />
+        <h1>机器人购物平台</h1>
+      </div>
+      <button
+        onClick={() => {
+          setCount(count + 1)
+        }
+        }>购物车
+      </button>
+      <span>{count}</span>
+      <ShoppingCart />
+      <div className={styles.robotList}>
+        {robotGallery.map((r) => (
+          <Robot key={r.id} id={r.id} name={r.name} email={r.email} />
+        ))}
+      </div>
+    </div>
+  )
+
+}
+
+export default App
+/**
+ * class 组件
+
+ class App extends React.Component<Props, State> {
   // * 生命周期第一阶段：初始化
   // 初始化组件 state
   constructor(props: Props) {
@@ -72,4 +126,5 @@ class App extends React.Component<Props, State> {
 
 }
 
-export default App
+ export default App
+ */
