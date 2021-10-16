@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { appSetStateContext } from '../AppState'
 import { RobotProps, AddToCartFn } from './Robots'
 
+// 高阶函数 with xxx
 export const withAddToCart = (ChildComponent: React.ComponentType<RobotProps>) => {
   // return class extends React.Component<any, any>
 
