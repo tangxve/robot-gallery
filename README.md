@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# 机器人购物网站
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+场景：
+1、普通商品卡片 
 
-## Available Scripts
+2、打折商品卡片 
 
-In the project directory, you can run:
+3、拥有复用的页面逻辑：加入购物车 `addToCart`
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+分别从高阶函数和自定义hook方向改造
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 复用逻辑
 
-### `yarn test`
+```tsx
+    const addToCart: AddToCartFn = (id, name) => {
+      if (setState) {
+        setState((state: any) => {
+          return {
+            ...state,
+            shoppingCart: {
+              items: [...state.shoppingCart.items, { id, name }]
+            }
+          }
+        })
+      }
+    }
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 高阶函数
 
-### `yarn build`
+命名规范：withXxxx
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[withAddToCart](./src/components/AddToCart.tsx#L6)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[普通商品 Robots 组件：](./src/components/Robots.tsx)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## 自定义 hooks
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+命名规范：useXxxx
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[useAddToCart](./src/components/AddToCart.tsx)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[打折商品 RobotDiscount 组件：](./src/components/RobotDiscount.tsx#L30)

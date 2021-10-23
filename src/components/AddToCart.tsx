@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { appSetStateContext } from '../AppState'
 import { RobotProps, AddToCartFn } from './Robots'
 
-// 高阶函数 with xxx
+// 高阶函数 withXxx
 export const withAddToCart = (ChildComponent: React.ComponentType<RobotProps>) => {
   // return class extends React.Component<any, any>
 
@@ -26,7 +26,7 @@ export const withAddToCart = (ChildComponent: React.ComponentType<RobotProps>) =
 }
 
 
-// 自定义 hook
+// 自定义 hook  useXxxx
 export const useAddToCart = () => {
   const setState = useContext(appSetStateContext)
 
