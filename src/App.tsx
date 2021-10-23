@@ -61,13 +61,13 @@ const App: React.FC = (props) => {
         <img className={styles.appLogo} src={logo} alt="logo" />
         <h1>机器人购物平台</h1>
       </div>
-      <button
-        onClick={() => {
-          setCount(count + 1)
-        }
-        }>购物车
-      </button>
-      <span>{count}</span>
+      {/*<button*/}
+      {/*  onClick={() => {*/}
+      {/*    setCount(count + 1)*/}
+      {/*  }*/}
+      {/*  }>购物车*/}
+      {/*</button>*/}
+      {/*<span>{count}</span>*/}
       <ShoppingCart />
       {
         !error || error !== '' && <div>错误信息：{error}</div>
