@@ -21,7 +21,7 @@ const App: React.FC = (props) => {
   const [error, setError] = useState<string>('')
 
   useEffect(() => {
-    document.title = '点击' + count
+    // document.title = '点击' + count
     console.log('useEffect3333')
   }, [count])
 

@@ -1,30 +1,32 @@
 # 机器人购物网站
 
-场景：
-1、普通商品卡片 
+[机器人购物网站](https://tangxve.github.io/robot-gallery/)
 
-2、打折商品卡片 
+## 需求场景：
+
+1、普通商品卡片
+
+2、打折商品卡片
 
 3、拥有复用的页面逻辑：加入购物车 `addToCart`
-
 
 分别从高阶函数和自定义hook方向改造
 
 ## 复用逻辑
 
 ```tsx
-    const addToCart: AddToCartFn = (id, name) => {
-      if (setState) {
-        setState((state: any) => {
-          return {
-            ...state,
-            shoppingCart: {
-              items: [...state.shoppingCart.items, { id, name }]
-            }
-          }
-        })
+const addToCart: AddToCartFn = (id, name) => {
+  if (setState) {
+    setState((state: any) => {
+      return {
+        ...state,
+        shoppingCart: {
+          items: [...state.shoppingCart.items, { id, name }]
+        }
       }
-    }
+    })
+  }
+}
 ```
 
 ## 高阶函数
@@ -34,7 +36,6 @@
 方法：[withAddToCart](./src/components/AddToCart.tsx#L6)
 
 使用：[普通商品 Robots 组件](./src/components/Robots.tsx)
-
 
 ## 自定义 hooks
 
