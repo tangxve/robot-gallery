@@ -31,15 +31,15 @@
 
 命名规范：withXxxx
 
-[withAddToCart](./src/components/AddToCart.tsx#L6)
+方法：[withAddToCart](./src/components/AddToCart.tsx#L6)
 
-[普通商品 Robots 组件：](./src/components/Robots.tsx)
+使用：[普通商品 Robots 组件](./src/components/Robots.tsx)
 
 
 ## 自定义 hooks
 
 命名规范：useXxxx
 
-[useAddToCart](./src/components/AddToCart.tsx)
+方法：[useAddToCart](./src/components/AddToCart.tsx)
 
-[打折商品 RobotDiscount 组件：](./src/components/RobotDiscount.tsx#L30)
+使用：[打折商品 RobotDiscount 组件](./src/components/RobotDiscount.tsx#L30)
